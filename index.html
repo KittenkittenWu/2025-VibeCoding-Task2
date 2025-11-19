@@ -1,37 +1,908 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; max-width: 100%; }
-    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC", Arial, sans-serif; line-height: 1.6; }
-    img { max-width: 100%; height: auto; display: block; }
-    .container { width: 1920px; margin: 0 auto; padding: 16px; }
-    nav a { margin-right: 12px; text-decoration: none; }
-    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
-    .col-12 { grid-column: span 12; }
-    @media (min-width: 768px) { .col-md-6 { grid-column: span 6; } }
-    .card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
-  </style>
-</head>
-<body>
-  <header class="container" role="banner">
-    <nav aria-label="主選單">
-      <a href="#about">關於我</a>
-      <a href="#projects">作品集</a>
-      <a href="https://example.com/blog">技術部落格</a>
-      <a href="mailto:me@example.com">聯絡我</a>
-    </nav>
-    <h1>你好，我是小明：前端工程師新手之路</h1>
-    <h1>你好，我是小明：前端工程師新手之路</h1>
-    <p>歡迎來到我的個人網站！這裡整理了學習紀錄、Side Project 與實作心得。</p>
-  </header>
+  <head>
+    <meta charset="UTF-8">
+    <title>Stella Wu · 從特助到策略設計者</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    >
+    <meta
+      name="description"
+      content="這是一位女性祕書講師的文青風個人品牌網站，用來介紹個人背景、技能、作品集與聯絡方式，展現祕書專業、教學風格與職場溝通的職涯故事。"
+    >
+    <style>
+      /* CSS:BASE-START */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
 
-  <footer class="container" role="contentinfo">
-    <p>© 2025 My Portfolio · <a href="#">GitHub</a></p>
-    <img src="https://source.unsplash.com/600x200/?technology,abstract" alt="">
-  </footer>
-</body>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC",
+          "Noto Sans TC", system-ui, sans-serif;
+        background-color: #fff2e0; /* 主題色 */
+        color: #3f3f46;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background-image:
+          radial-gradient(circle at top left, rgba(192, 201, 238, 0.4) 0, transparent 55%),
+          radial-gradient(circle at bottom right, rgba(162, 170, 219, 0.4) 0, transparent 55%);
+        background-attachment: fixed;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 0.9rem;
+      }
+
+      a {
+        color: #898ac4; /* 輔色深紫 */
+        text-decoration: none;
+      }
+
+      a:hover,
+      a:focus-visible {
+        text-decoration: underline;
+      }
+
+      .section {
+        padding: 3.25rem 0;
+      }
+
+      .section + .section {
+        border-top: 1px dashed rgba(137, 138, 196, 0.45);
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+        margin: 0 0 1rem;
+        letter-spacing: 0.05em;
+        color: #44405a;
+      }
+
+      .section-intro {
+        margin: 0 0 1rem;
+        color: #5b5764;
+        font-size: 0.95rem;
+      }
+
+      .section-note {
+        font-size: 0.86rem;
+        color: #928f9e;
+        margin-top: 0.75rem;
+      }
+
+      .pill-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.18rem 0.7rem;
+        border-radius: 999px;
+        border: 1px dashed rgba(137, 138, 196, 0.7);
+        background: rgba(255, 247, 235, 0.9);
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #6b7280;
+        margin-bottom: 0.8rem;
+      }
+
+      .pill-dot {
+        width: 0.32rem;
+        height: 0.32rem;
+        border-radius: 999px;
+        background: #898ac4;
+      }
+
+      .muted {
+        color: #7a7480;
+      }
+
+      .list-inline {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .list-inline-item {
+        font-size: 0.85rem;
+        padding: 0.15rem 0.6rem;
+        border-radius: 999px;
+        border: 1px dashed rgba(162, 170, 219, 0.9);
+        background: rgba(255, 247, 235, 0.9);
+        color: #4b5563;
+      }
+      /* CSS:BASE-END */
+
+      /* CSS:HERO-START */
+      .section-hero {
+        padding-top: 5.25rem;
+        padding-bottom: 3.75rem;
+      }
+
+      .hero-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        align-items: flex-start;
+      }
+
+      .hero-text-block {
+        max-width: 32rem;
+      }
+
+      .hero-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.25rem 0.8rem;
+        border-radius: 999px;
+        border: 1px dashed rgba(192, 201, 238, 0.9);
+        background: rgba(255, 247, 235, 0.95);
+        font-size: 0.76rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #6b7280;
+        margin-bottom: 0.9rem;
+      }
+
+      .hero-label-pencil {
+        width: 0.8rem;
+        height: 0.8rem;
+        border-radius: 0.2rem;
+        border: 1px solid rgba(137, 138, 196, 0.9);
+        background: linear-gradient(
+          135deg,
+          rgba(192, 201, 238, 0.9),
+          rgba(162, 170, 219, 0.9)
+        );
+      }
+
+      .hero-title {
+        font-size: 2rem;
+        line-height: 1.3;
+        margin: 0 0 0.8rem;
+        color: #3a3249;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+        margin: 0 0 1rem;
+        color: #5b5764;
+      }
+
+      .hero-paragraph {
+        margin: 0 0 0.75rem;
+        font-size: 0.95rem;
+        color: #615b68;
+      }
+
+      .hero-dev-note {
+        font-size: 0.85rem;
+        color: #928f9e;
+        margin-top: 1rem;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+      }
+
+      .hero-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.7rem 1.4rem;
+        border-radius: 999px;
+        border: 1px solid rgba(137, 138, 196, 0.95);
+        background: linear-gradient(
+          135deg,
+          #c0c9ee,
+          #898ac4
+        );
+        color: #fffaf2;
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-decoration: none;
+        box-shadow: 0 6px 14px rgba(137, 138, 196, 0.35);
+      }
+
+      .hero-button:hover,
+      .hero-button:focus-visible {
+        text-decoration: none;
+        filter: brightness(1.07);
+      }
+
+      .hero-button-outline {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.7rem 1.2rem;
+        border-radius: 999px;
+        border: 1px dashed rgba(162, 170, 219, 0.95);
+        background: rgba(255, 247, 235, 0.95);
+        color: #4b5563;
+        font-size: 0.9rem;
+        text-decoration: none;
+      }
+
+      .hero-button-outline:hover,
+      .hero-button-outline:focus-visible {
+        background: rgba(255, 255, 255, 0.95);
+        text-decoration: none;
+      }
+
+      .hero-image-block {
+        width: 100%;
+        max-width: 21rem;
+        position: relative;
+      }
+
+      .hero-image-frame {
+        padding: 0.7rem;
+        border-radius: 1.1rem;
+        border: 1px dashed rgba(192, 201, 238, 0.9);
+        background: rgba(255, 247, 235, 0.95);
+        box-shadow:
+          0 12px 20px rgba(0, 0, 0, 0.04),
+          0 0 0 6px rgba(255, 247, 235, 0.9);
+      }
+
+      .hero-image-tape {
+        position: absolute;
+        top: -0.4rem;
+        left: 1.5rem;
+        width: 3rem;
+        height: 0.6rem;
+        border-radius: 0.2rem;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 2px 4px rgba(148, 163, 184, 0.3);
+        transform: rotate(-6deg);
+      }
+
+      .hero-image-tape-alt {
+        position: absolute;
+        bottom: -0.4rem;
+        right: 1.2rem;
+        width: 2.8rem;
+        height: 0.55rem;
+        border-radius: 0.2rem;
+        background: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 2px 4px rgba(148, 163, 184, 0.25);
+        transform: rotate(4deg);
+      }
+
+      .hero-image-note {
+        font-size: 0.8rem;
+        color: #928f9e;
+        margin-top: 0.55rem;
+      }
+      /* CSS:HERO-END */
+
+      /* CSS:ABOUT-START */
+      .section-about {
+        background-image: linear-gradient(
+          to bottom,
+          rgba(255, 247, 235, 0.95),
+          rgba(255, 242, 224, 0.7)
+        );
+      }
+
+      .about-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 1.75rem;
+      }
+
+      .about-content {
+        font-size: 0.95rem;
+        color: #5f5966;
+      }
+
+      .about-card {
+        padding: 1.1rem 1.2rem;
+        border-radius: 0.9rem;
+        border: 1px dashed rgba(192, 201, 238, 0.9);
+        background: rgba(255, 255, 255, 0.95);
+      }
+      /* CSS:ABOUT-END */
+
+      /* CSS:SKILLS-START */
+      .section-skills {
+        background-image: linear-gradient(
+          to bottom,
+          rgba(255, 242, 224, 0.7),
+          rgba(255, 250, 244, 0.9)
+        );
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.3rem;
+        margin-top: 1.25rem;
+      }
+
+      .skills-column {
+        padding: 1rem 1.1rem;
+        border-radius: 0.9rem;
+        border: 1px dashed rgba(162, 170, 219, 0.9);
+        background: rgba(255, 255, 255, 0.96);
+      }
+
+      .skills-column-title {
+        font-size: 0.9rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #898ac4;
+        margin: 0 0 0.5rem;
+      }
+
+      .skills-note {
+        font-size: 0.85rem;
+        color: #928f9e;
+        margin-top: 0.75rem;
+      }
+      /* CSS:SKILLS-END */
+
+      /* CSS:PROJECTS-START */
+      .section-projects {
+        background-image: linear-gradient(
+          to bottom,
+          rgba(255, 250, 244, 0.9),
+          rgba(255, 247, 235, 0.96)
+        );
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.5rem;
+        margin-top: 1.25rem;
+      }
+
+      .project-card {
+        border-radius: 1rem;
+        border: 1px dashed rgba(192, 201, 238, 0.9);
+        padding: 1.1rem 1.1rem 1rem;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.03);
+      }
+
+      .project-title {
+        margin: 0 0 0.5rem;
+        font-size: 1rem;
+        color: #443d54;
+      }
+
+      .project-meta {
+        font-size: 0.8rem;
+        color: #928f9e;
+        margin-bottom: 0.5rem;
+      }
+
+      .project-placeholder {
+        font-size: 0.9rem;
+        color: #5f5966;
+      }
+
+      .project-dev-note {
+        font-size: 0.8rem;
+        color: #928f9e;
+        margin-top: 0.75rem;
+      }
+      /* CSS:PROJECTS-END */
+
+      /* CSS:CONTACT-START */
+      .section-contact {
+        background-image: linear-gradient(
+          to bottom,
+          rgba(255, 247, 235, 0.96),
+          rgba(255, 242, 224, 1)
+        );
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.5rem;
+        margin-top: 1.25rem;
+      }
+
+      .contact-text {
+        font-size: 0.95rem;
+        color: #5f5966;
+      }
+
+      .contact-list {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0 0;
+        display: grid;
+        gap: 0.7rem;
+      }
+
+      .contact-item-label {
+        font-size: 0.8rem;
+        color: #928f9e;
+        margin-bottom: 0.1rem;
+      }
+
+      .contact-link {
+        font-size: 0.9rem;
+        word-break: break-all;
+        display: inline-block;
+        padding-bottom: 0.05rem;
+        border-bottom: 1px dashed rgba(162, 170, 219, 0.8);
+      }
+
+      .contact-dev-note {
+        font-size: 0.8rem;
+        color: #928f9e;
+        margin-top: 0.75rem;
+      }
+      /* CSS:CONTACT-END */
+
+      /* CSS:RWD-START */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(14px);
+        background: rgba(255, 242, 224, 0.95);
+        border-bottom: 1px dashed rgba(162, 170, 219, 0.9);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.7rem 0;
+        gap: 1rem;
+      }
+
+      .nav-brand {
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        color: #453c52;
+      }
+
+      .nav-brand span {
+        color: #898ac4;
+      }
+
+      .nav-list {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        margin: 0;
+        padding: 0;
+        overflow-x: auto;
+      }
+
+      .nav-item {
+        flex-shrink: 0;
+      }
+
+      .nav-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.4rem 0.9rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        color: #4b5563;
+        text-decoration: none;
+        border: 1px dashed transparent;
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      .nav-link:hover,
+      .nav-link:focus-visible {
+        border-color: rgba(192, 201, 238, 0.9);
+        background: rgba(255, 250, 244, 1);
+        text-decoration: none;
+      }
+
+      .nav-link-primary {
+        border-color: rgba(137, 138, 196, 0.95);
+        background: #fff7eb;
+        color: #443d54;
+      }
+
+      .site-footer {
+        margin-top: auto;
+        padding: 1.2rem 0 1.6rem;
+        border-top: 1px dashed rgba(162, 170, 219, 0.9);
+        font-size: 0.8rem;
+        color: #928f9e;
+        background: rgba(255, 247, 235, 0.9);
+      }
+
+      .site-footer-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .site-footer-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        font-size: 0.78rem;
+      }
+
+      .site-footer-meta span {
+        opacity: 0.9;
+      }
+
+      @media (min-width: 768px) {
+        .section-hero {
+          padding-top: 5.8rem;
+          padding-bottom: 4.1rem;
+        }
+
+        .hero-inner {
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .hero-title {
+          font-size: 2.3rem;
+        }
+
+        .hero-subtitle {
+          font-size: 1.05rem;
+        }
+
+        .about-layout {
+          flex-direction: row;
+          align-items: flex-start;
+        }
+
+        .about-layout > * {
+          flex: 1;
+        }
+
+        .skills-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .projects-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .contact-grid {
+          grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
+        }
+
+        .nav-link {
+          font-size: 0.85rem;
+        }
+
+        .site-footer-inner {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .projects-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+      /* CSS:RWD-END */
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="site-header">
+        <div class="container">
+          <nav class="nav" aria-label="主選單">
+            <div class="nav-brand">
+              Stella Wu · <span>祕書講師</span>
+            </div>
+            <ul class="nav-list">
+              <li class="nav-item">
+                <a class="nav-link nav-link-primary" href="#hero">首頁</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#about">關於我</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#skills">技能</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#projects">作品集</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contact">聯絡我</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <!-- SECTION:HERO-START -->
+        <section id="hero" class="section section-hero" aria-label="個人網站主視覺區">
+          <div class="container">
+            <div class="hero-inner">
+              <div class="hero-text-block">
+                <div class="hero-label">
+                  <span class="hero-label-pencil"></span>
+                  <span>文青手繪風 Hero 區占位</span>
+                </div>
+                <h1 class="hero-title">
+                  文青風祕書講師的個人品牌首頁（Hero 區占位內容）
+                </h1>
+                <p class="hero-subtitle">
+                  未來會在這裡放上一句話自我介紹、核心職稱（例如「祕書講師・工作流設計」），以及引導瀏覽作品與預約合作的主要行動按鈕。
+                </p>
+                <p class="hero-paragraph">
+                  目前這一區的文字是示意用的占位內容，搭配淡色手繪感的卡片與色塊，讓你之後可以直接用 Section SDD 的 Prompt
+                  產生正式文案與排版，再把新的 Hero &lt;section&gt; 貼回來取代這裡。
+                </p>
+                <p class="hero-paragraph">
+                  正式版可以放入：你擅長的主題（如祕書職涯、時間管理、工作流程設計）、授課型態，以及一句最能代表你的標語，搭配一張文具桌面或書寫場景的照片。
+                </p>
+                <p class="hero-dev-note">
+                  開發者說明：之後會用 Section SDD 的 Prompt 產生新的 section，請把新的 section
+                  程式碼整段貼在這兩個註解中間，完全取代現在這一區。
+                </p>
+                <div class="hero-actions" aria-label="示意行動按鈕（占位）">
+                  <a class="hero-button" href="#projects">瀏覽作品集（占位按鈕）</a>
+                  <a class="hero-button-outline" href="#contact">聯絡與合作（占位按鈕）</a>
+                </div>
+              </div>
+              <div class="hero-image-block">
+                <div class="hero-image-tape"></div>
+                <div class="hero-image-tape-alt"></div>
+                <div class="hero-image-frame">
+                  <img
+                    src="https://source.unsplash.com/800x600/?woman,desk,notebook"
+                    alt="一位女性祕書在書桌前書寫筆記與規劃行程的文青風照片"
+                    loading="lazy"
+                  >
+                </div>
+                <p class="hero-image-note">
+                  圖片為 Unsplash 示意圖，目前作為 Hero 區的文青手寫桌面形象照占位，之後可替換成實際個人照片或品牌攝影作品。
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- SECTION:HERO-END -->
+
+        <!-- SECTION:ABOUT-START -->
+        <section id="about" class="section section-about" aria-labelledby="about-heading">
+          <div class="container">
+            <span class="pill-label">
+              <span class="pill-dot"></span>
+              About Section Placeholder
+            </span>
+            <h2 id="about-heading" class="section-title">關於我（之後會用 Section SDD 替換）</h2>
+            <div class="about-layout">
+              <div class="about-card">
+                <p class="section-intro">
+                  這裡目前是 About 區的占位內容，未來會用 Section SDD 的 Prompt
+                  產生更完整的「祕書講師背景與故事」，例如實務經驗、職涯轉折與教學特色，搭配文青風的敘事方式。
+                </p>
+                <p>
+                  正式內容可能包含：你從祕書工作累積的專業、如何開始分享課程、最在意的職場主題，以及你希望陪伴學員解決的困擾。完成後可以直接把新的
+                  &lt;section id="about"&gt; 程式碼貼回來，覆蓋這塊占位內容。
+                </p>
+                <p class="section-note">
+                  開發者說明：之後會用 Section SDD 的 Prompt 產生新的 section，請把新的 section
+                  程式碼整段貼在這兩個註解中間，完全取代現在這一區。
+                </p>
+              </div>
+              <div class="about-card">
+                <p class="muted">
+                  這一側可以在之後改成時間軸、祕書職涯里程碑、或是「三件關於我的小事」等版型。現在以文字占位，提醒未來這裡適合呈現更個人化、手寫感的內容。
+                </p>
+                <ul class="list-inline" aria-label="未來可替換的個人重點標籤示意">
+                  <li class="list-inline-item">祕書職涯與實務</li>
+                  <li class="list-inline-item">課程規劃與教學</li>
+                  <li class="list-inline-item">文青手寫與整理術</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- SECTION:ABOUT-END -->
+
+        <!-- SECTION:SKILLS-START -->
+        <section id="skills" class="section section-skills" aria-labelledby="skills-heading">
+          <div class="container">
+            <span class="pill-label">
+              <span class="pill-dot"></span>
+              Skills Section Placeholder
+            </span>
+            <h2 id="skills-heading" class="section-title">技能（之後會用 Section SDD 替換）</h2>
+            <p class="section-intro">
+              這裡目前是 Skills 區的占位內容，未來會用 Section SDD 的 Prompt
+              產生更具結構的技能列表，例如祕書專業、課程設計、工具與數位工作流等，以文青手繪風的「小標籤」方式呈現。
+            </p>
+            <div class="skills-grid">
+              <div class="skills-column">
+                <h3 class="skills-column-title">範例欄位：祕書與行政實務</h3>
+                <p>
+                  之後可以在這裡列出行程管理、會議安排、文件整理、跨部門溝通等祕書核心能力，搭配簡短說明每項技能如何轉化成課程內容或顧問服務。
+                </p>
+              </div>
+              <div class="skills-column">
+                <h3 class="skills-column-title">範例欄位：教學與工具運用</h3>
+                <p>
+                  這裡可以描述你熟悉的數位工具（如日程管理、筆記系統、簡報設計）與教學風格，例如以故事、範例與手寫筆記陪伴學員實作。正式版由 Section
+                  SDD 產出後，可以自由調整欄位數量與內容。
+                </p>
+              </div>
+            </div>
+            <p class="skills-note">
+              開發者說明：之後會用 Section SDD 的 Prompt 產生新的 section，請把新的 section
+              程式碼整段貼在這兩個註解中間，完全取代現在這一區。
+            </p>
+          </div>
+        </section>
+        <!-- SECTION:SKILLS-END -->
+
+        <!-- SECTION:PROJECTS-START -->
+        <section id="projects" class="section section-projects" aria-labelledby="projects-heading">
+          <div class="container">
+            <span class="pill-label">
+              <span class="pill-dot"></span>
+              Projects Section Placeholder
+            </span>
+            <h2 id="projects-heading" class="section-title">作品集（之後會用 Section SDD 替換）</h2>
+            <p class="section-intro">
+              這裡目前是 Projects 區的占位內容，未來會用 Section SDD 的 Prompt
+              產生實際課程、講座或專案的作品卡片，例如祕書養成課程、時間管理工作坊、或協助優化辦公室流程的案例。
+            </p>
+            <div class="projects-grid" aria-label="作品集卡片占位範例">
+              <article class="project-card">
+                <h3 class="project-title">作品卡片占位：祕書養成課程</h3>
+                <p class="project-meta">
+                  未來可放：課程類型、開課形式（線上／實體）、授課角色與適合對象等基本資訊。
+                </p>
+                <p class="project-placeholder">
+                  目前這張卡片是版型示意，日後可以替換為實際課程介紹與報名連結，搭配文青色系的小圖示或手寫感元素。
+                </p>
+                <p class="project-dev-note">
+                  開發者說明：正式內容產出後，可以整個 &lt;article&gt; 或整個 &lt;section&gt;
+                  結構一起替換，不需要侷限在目前的卡片數量。
+                </p>
+              </article>
+              <article class="project-card">
+                <h3 class="project-title">作品卡片占位：工作流與時間管理工作坊</h3>
+                <p class="project-meta">
+                  這裡可放針對祕書或行政人員的實作型工作坊，說明課程重點與學員帶走的成果。
+                </p>
+                <p class="project-placeholder">
+                  你可以在 Section SDD 中指定需要幾張卡片、每張要包含哪些欄位，產生完的程式碼再整段貼回來取代這一區。
+                </p>
+              </article>
+              <article class="project-card">
+                <h3 class="project-title">作品卡片占位：顧問與專案輔導案例</h3>
+                <p class="project-meta">
+                  可用來記錄協助企業或團隊整理流程、建立文件系統、或內部培訓專案的案例摘要。
+                </p>
+                <p class="project-placeholder">
+                  現在僅為占位文字，提醒未來可以加入實際專案成果、學員回饋與相關連結，維持文青手繪的視覺風格。
+                </p>
+              </article>
+            </div>
+            <p class="project-dev-note">
+              開發者說明：之後會用 Section SDD 的 Prompt 產生新的 section，請把新的 section
+              程式碼整段貼在這兩個註解中間，完全取代現在這一區。
+            </p>
+          </div>
+        </section>
+        <!-- SECTION:PROJECTS-END -->
+
+        <!-- SECTION:CONTACT-START -->
+        <section id="contact" class="section section-contact" aria-labelledby="contact-heading">
+          <div class="container">
+            <span class="pill-label">
+              <span class="pill-dot"></span>
+              Contact Section Placeholder
+            </span>
+            <h2 id="contact-heading" class="section-title">聯絡我（之後會用 Section SDD 替換）</h2>
+            <div class="contact-grid">
+              <div class="contact-text">
+                <p class="section-intro">
+                  這裡目前是 Contact 區的占位內容，未來會用 Section SDD 的 Prompt
+                  產生更完整的聯絡與合作說明，例如適合洽談的主題、授課形式與預約流程等。
+                </p>
+                <p>
+                  正式版本可以加入：邀請企業訓練、為祕書與行政團隊規劃內訓課程、或一對一諮詢的簡短說明。你也可以改成實際的聯絡表單結構，維持整體文青手寫風的語氣。
+                </p>
+                <p class="contact-dev-note">
+                  開發者說明：之後會用 Section SDD 的 Prompt 產生新的 section，請把新的 section
+                  程式碼整段貼在這兩個註解中間，完全取代現在這一區。
+                </p>
+              </div>
+              <div>
+                <div class="contact-text">
+                  <p class="muted">
+                    下方是示意用的聯絡資訊占位，未來可直接改成實際 Email、社群或表單連結，或由 Section
+                    SDD 產生新版區塊：
+                  </p>
+                </div>
+                <ul class="contact-list">
+                  <li>
+                    <div class="contact-item-label">Email（示意）</div>
+                    <a class="contact-link" href="mailto:hello@example.com">hello@example.com</a>
+                  </li>
+                  <li>
+                    <div class="contact-item-label">電話（示意）</div>
+                    <a class="contact-link" href="tel:+886900000000">+886 900 000 000</a>
+                  </li>
+                  <li>
+                    <div class="contact-item-label">GitHub（示意）</div>
+                    <a class="contact-link" href="https://github.com/yourname">https://github.com/yourname</a>
+                  </li>
+                  <li>
+                    <div class="contact-item-label">LinkedIn（示意）</div>
+                    <a class="contact-link" href="https://www.linkedin.com/in/yourname">https://www.linkedin.com/in/yourname</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- SECTION:CONTACT-END -->
+      </main>
+
+      <footer class="site-footer">
+        <div class="container">
+          <div class="site-footer-inner">
+            <div>
+              © 2025 Stella Wu · 祕書講師. 本網站目前為文青手繪風骨架版本，內容日後將以 Section SDD
+              產生的正式區塊替換。
+            </div>
+            <div class="site-footer-meta">
+              <span>主題色：#FFF2E0 · 輔色：#C0C9EE / #A2AADB / #898AC4</span>
+              <span>說明：各 section 已預留 HTML 與 CSS 插槽，方便未來整段替換。</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>
